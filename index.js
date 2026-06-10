@@ -341,7 +341,7 @@ export default async function (ctx) {
 
   ctx.ui.settings.define({
     id: 'default',
-    title: '歌词聚焦设置',
+    title: '歌词美化设置',
     description: '自定义模糊强度与缩放比例',
     component: SettingsPanel,
   })
@@ -358,7 +358,7 @@ export default async function (ctx) {
     removeWidthLimit()
   })
 
-  ctx.toast.success('歌词聚焦已启用，打开歌词页查看效果')
+  ctx.toast.success('歌词美化已启用，打开歌词页查看效果')
 }
 
 // ── 辅助：设置面板行布局 ──
