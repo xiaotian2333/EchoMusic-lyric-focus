@@ -1,5 +1,5 @@
 export default async function (ctx) {
-  const { defineComponent, defineAsyncComponent, h, ref } = ctx.vue
+  const { defineComponent, h, ref } = ctx.vue
 
   // ── 默认设置 ──
   const defaultSettings = {
@@ -8,7 +8,6 @@ export default async function (ctx) {
     currentScale: 1.3,
     normalScale: 0.85,
     minOpacity: 0.3,
-    enabled: true,
     topOffset: 0,
     currentOffset: 0,
     bottomOffset: 0,
@@ -20,7 +19,10 @@ export default async function (ctx) {
   const settings = ref({ ...defaultSettings })
 
   ctx.storage.get('settings').then(s => {
-    if (s) Object.assign(settings.value, { ...defaultSettings, ...s })
+    if (s) {
+      Object.assign(settings.value, { ...defaultSettings, ...s })
+      delete settings.value.enabled
+    }
     injectSpacingStyles()
     updateAllRows()
   })
@@ -78,8 +80,6 @@ export default async function (ctx) {
       removeSpacingStyles = null
     }
 
-    if (!settings.value.enabled) return
-
     const spacing = Number(settings.value.lineSpacing)
     const safeSpacing = Number.isFinite(spacing) ? spacing : defaultSettings.lineSpacing
 
@@ -109,8 +109,6 @@ export default async function (ctx) {
 
   // ── 为单行应用模糊和弯曲 ──
   const applyBlurToRow = (rowEl) => {
-    if (!settings.value.enabled) return
-
     const lineEl = rowEl.querySelector('.lyric-line')
     if (!lineEl) return
 
@@ -244,7 +242,6 @@ export default async function (ctx) {
   const SettingsPanel = defineComponent({
     name: 'LyricFocusSettings',
     setup() {
-      const Switch = defineAsyncComponent(ctx.ui.components.Switch)
       const localSettings = ref({ ...settings.value })
 
       const handleChange = (key, value) => {
@@ -257,12 +254,6 @@ export default async function (ctx) {
       }
 
       return () => h('div', { class: 'lf-settings' }, [
-        settingRow(h, '启用美化', '',
-          h(Switch, {
-            modelValue: localSettings.value.enabled,
-            'onUpdate:modelValue': (v) => handleChange('enabled', v),
-          })
-        ),
         settingRow(h, '模糊步进', `${localSettings.value.blurStep}px`,
           h('input', {
             type: 'range', min: 1, max: 12, step: 1,
