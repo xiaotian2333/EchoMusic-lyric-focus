@@ -1,0 +1,62 @@
+/* ── 设置面板 ── */
+
+.lf-settings {
+  display: grid;
+  gap: 14px;
+  padding: 16px 4px;
+}
+
+.lf-setting-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.lf-setting-label {
+  min-width: 100px;
+  font-size: 0.95em;
+}
+
+.lf-setting-row input[type="range"] {
+  flex: 1;
+  max-width: 200px;
+  height: 4px;
+  accent-color: var(--color-primary, #31cfa1);
+  cursor: pointer;
+}
+
+.lf-setting-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary, #31cfa1);
+  cursor: pointer;
+}
+
+.lf-setting-value {
+  min-width: 44px;
+  text-align: right;
+  font-size: 0.85em;
+  opacity: 0.65;
+  font-variant-numeric: tabular-nums;
+}
+
+.lf-save-btn {
+  justify-self: end;
+  margin-top: 8px;
+  padding: 8px 28px;
+  border: none;
+  border-radius: 6px;
+  background: var(--color-primary, #31cfa1);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.95em;
+  transition: opacity 0.2s;
+}
+
+.lf-save-btn:hover {
+  opacity: 0.85;
+}
+
+.lf-save-btn:active {
+  opacity: 0.7;
+}
