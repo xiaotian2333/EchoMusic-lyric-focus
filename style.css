@@ -32,6 +32,34 @@
   cursor: pointer;
 }
 
+.lf-align-options {
+  display: inline-flex;
+  gap: 6px;
+  flex: 1;
+  max-width: 220px;
+}
+
+.lf-align-option {
+  padding: 5px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: inherit;
+  cursor: pointer;
+  font-size: 0.86em;
+  transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+}
+
+.lf-align-option:hover {
+  opacity: 0.86;
+}
+
+.lf-align-option.is-active {
+  border-color: var(--color-primary, #31cfa1);
+  background: var(--color-primary, #31cfa1);
+  color: #fff;
+}
+
 .lf-setting-value {
   min-width: 44px;
   text-align: right;

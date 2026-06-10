@@ -1,8 +1,8 @@
 {
   "id": "lyric-focus",
-  "name": "歌词聚焦",
-  "version": "1.0.0",
-  "description": "当前播放行放大展示，其他行渐进高斯模糊，用户滚动时取消模糊",
+  "name": "歌词美化",
+  "version": "1.1.0",
+  "description": "美化歌词显示",
   "author": "xiaotian2333",
   "path": "",
   "repo": "https://github.com/xiaotian2333/EchoMusic-lyric-focus",
