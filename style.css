@@ -25,12 +25,6 @@
   cursor: pointer;
 }
 
-.lf-setting-row input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  accent-color: var(--color-primary, #31cfa1);
-  cursor: pointer;
-}
 
 .lf-align-options {
   display: inline-flex;

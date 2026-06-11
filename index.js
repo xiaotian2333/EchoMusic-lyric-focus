@@ -1,5 +1,5 @@
 export default async function (ctx) {
-  const { defineComponent, h, ref } = ctx.vue
+  const { defineComponent, h, ref, defineAsyncComponent } = ctx.vue
 
   // ── 默认设置 ──
   const defaultSettings = {
@@ -12,10 +12,12 @@ export default async function (ctx) {
     currentOffset: 0,
     bottomOffset: 0,
     curveIntensity: 4,
+    curveEnabled: true,
     lineSpacing: 16,
     lyricAlign: 'center',
   }
 
+  const Switch = defineAsyncComponent(ctx.ui.components.Switch)
   const settings = ref({ ...defaultSettings })
 
   ctx.storage.get('settings').then(s => {
@@ -154,8 +156,12 @@ export default async function (ctx) {
     } else {
       offset = s.currentOffset
     }
-    const curveAngle = distance * s.curveIntensity
-    rowEl.style.transform = `translateX(${offset}px) rotate(${curveAngle}deg)`
+    let transform = `translateX(${offset}px)`
+    if (s.curveEnabled) {
+      const curveAngle = distance * s.curveIntensity
+      transform += ` rotate(${curveAngle}deg)`
+    }
+    rowEl.style.transform = transform
   }
 
   // ── 更新所有可见行 ──
@@ -315,6 +321,12 @@ export default async function (ctx) {
             type: 'range', min: 5, max: 20, step: 0.01,
             value: localSettings.value.curveIntensity,
             onInput: (e) => handleChange('curveIntensity', parseFloat(e.target.value)),
+          })
+        ),
+        settingRow(h, '旋转强度开关', localSettings.value.curveEnabled ? '开启' : '关闭',
+          h(Switch, {
+            modelValue: localSettings.value.curveEnabled,
+            'onUpdate:modelValue': (v) => handleChange('curveEnabled', v),
           })
         ),
         settingRow(h, '歌词间距', `${localSettings.value.lineSpacing}px`,
